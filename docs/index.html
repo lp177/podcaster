@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Podcast du jour — daily fresh-news AI podcasts</title>
+<meta name="description" content="A self-hosted, Material-design platform that generates daily, fresh-news AI podcasts per theme. Accounts & roles, email subscriptions, offline PWA, Docker-ready." />
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<meta property="og:title" content="Podcast du jour" />
+<meta property="og:description" content="Daily fresh-news AI podcasts per theme — Material UI, accounts & roles, offline PWA, Docker-ready." />
+<meta property="og:url" content="https://lp177.github.io/podcaster/" />
+<meta property="og:image" content="https://lp177.github.io/podcaster/screenshots/today.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="theme-color" content="#0e0e13" />
+<style>
+  :root{
+    --bg:#0b0b10; --surface:#131319; --surface-1:#1a1a22; --surface-2:#20202b; --surface-3:#2a2a38;
+    --on:#e9e6ef; --muted:#9c95ab; --primary:#7c5cff; --primary-2:#b794ff; --secondary:#79f2c0;
+    --outline:#2c2a36; --r:18px; --maxw:1080px;
+    --elev:0 1px 2px rgba(0,0,0,.4),0 8px 24px -8px rgba(0,0,0,.5);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:"Roboto",system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--on);line-height:1.6;
+    background:radial-gradient(1200px 620px at 85% -10%,#241a4d,transparent 60%),radial-gradient(900px 520px at -8% 0,#10303a,transparent 55%),var(--bg);
+    background-attachment:fixed;-webkit-font-smoothing:antialiased}
+  a{color:var(--primary-2);text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+  .pill{display:inline-flex;align-items:center;gap:8px;background:var(--surface-2);border:1px solid var(--outline);
+    color:var(--muted);font-size:13px;font-weight:600;padding:6px 14px;border-radius:999px}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:13px 22px;border-radius:999px;font-weight:700;font-size:15px;
+    border:1px solid transparent;cursor:pointer;transition:transform .12s,box-shadow .2s,background .2s}
+  .btn.primary{background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#fff;box-shadow:var(--elev)}
+  .btn.ghost{background:var(--surface-1);border-color:var(--outline);color:var(--on)}
+  .btn:hover{transform:translateY(-2px)}
+  .ic{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+  /* top nav */
+  header{position:sticky;top:0;z-index:10;backdrop-filter:blur(14px);
+    background:color-mix(in srgb,var(--bg) 78%,transparent);border-bottom:1px solid var(--outline)}
+  header .wrap{display:flex;align-items:center;gap:14px;height:64px}
+  .logo{width:38px;height:38px;border-radius:11px;background:linear-gradient(140deg,var(--primary),var(--primary-2));
+    display:grid;place-items:center;box-shadow:var(--elev)}
+  .brand{font-weight:800;letter-spacing:.2px}
+  header nav{margin-left:auto;display:flex;gap:8px;align-items:center}
+  header nav a{color:var(--muted);font-weight:600;font-size:14px;padding:8px 12px;border-radius:10px}
+  header nav a:hover{color:var(--on);background:var(--surface-1)}
+  @media(max-width:720px){header nav a.hideable{display:none}}
+
+  /* hero */
+  .hero{text-align:center;padding:84px 0 60px}
+  .hero h1{font-size:clamp(34px,6vw,60px);line-height:1.05;margin:18px 0 14px;letter-spacing:-1px;
+    background:linear-gradient(120deg,#fff,#c9bdff 60%,#8fe9c8);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p.lede{font-size:clamp(16px,2.4vw,20px);color:var(--muted);max-width:60ch;margin:0 auto 28px}
+  .cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .hero .tags{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:30px}
+
+  /* hero shot */
+  .shot-hero{margin:48px auto 0;max-width:980px;border-radius:var(--r);border:1px solid var(--outline);
+    box-shadow:0 30px 80px -30px rgba(0,0,0,.8);overflow:hidden;background:var(--surface)}
+  .shot-hero img{display:block;width:100%}
+
+  section{padding:64px 0}
+  .eyebrow{color:var(--secondary);font-weight:700;font-size:13px;letter-spacing:1.4px;text-transform:uppercase}
+  h2.title{font-size:clamp(26px,4vw,38px);margin:8px 0 10px;letter-spacing:-.5px}
+  .sub{color:var(--muted);max-width:64ch}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:18px;margin-top:36px}
+  .feat{background:var(--surface-1);border:1px solid var(--outline);border-radius:var(--r);padding:22px;
+    transition:transform .15s,box-shadow .2s,border-color .2s}
+  .feat:hover{transform:translateY(-3px);box-shadow:var(--elev);border-color:#3a3550}
+  .feat .fi{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;margin-bottom:14px;
+    background:color-mix(in srgb,var(--primary) 22%,var(--surface-3));color:var(--primary-2)}
+  .feat h3{margin:0 0 6px;font-size:17px}
+  .feat p{margin:0;color:var(--muted);font-size:14px}
+
+  /* gallery */
+  .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;margin-top:36px}
+  .gcard{background:var(--surface-1);border:1px solid var(--outline);border-radius:var(--r);overflow:hidden}
+  .gcard img{display:block;width:100%;border-bottom:1px solid var(--outline);background:var(--surface)}
+  .gcard .cap{padding:13px 16px;font-size:14px}
+  .gcard .cap b{display:block}
+  .gcard .cap span{color:var(--muted);font-size:13px}
+
+  /* steps / code */
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:36px}
+  @media(max-width:760px){.cols{grid-template-columns:1fr}}
+  .codecard{background:#0c0c12;border:1px solid var(--outline);border-radius:var(--r);overflow:hidden}
+  .codecard .bar{display:flex;align-items:center;gap:8px;padding:11px 16px;border-bottom:1px solid var(--outline);
+    background:var(--surface-1);font-size:13px;color:var(--muted);font-weight:600}
+  .codecard .bar i{width:11px;height:11px;border-radius:50%;background:#3a3550;display:inline-block}
+  pre{margin:0;padding:18px;overflow:auto;font:13px/1.7 ui-monospace,"SFMono-Regular",monospace;color:#d6d2e2}
+  pre .c{color:#6f6a82}
+  pre .k{color:var(--secondary)}
+  pre .v{color:var(--primary-2)}
+
+  .pipeline{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+  .step{flex:1;min-width:180px;background:var(--surface-1);border:1px solid var(--outline);border-radius:14px;padding:18px}
+  .step b{color:var(--primary-2);font-size:13px}
+  .step h4{margin:6px 0 4px;font-size:16px}
+  .step p{margin:0;color:var(--muted);font-size:13.5px}
+
+  .rolegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:30px}
+  .role{background:var(--surface-1);border:1px solid var(--outline);border-radius:14px;padding:18px}
+  .role .tag{font-size:11px;font-weight:800;letter-spacing:.5px;padding:3px 10px;border-radius:999px}
+  .role.admin .tag{background:var(--primary);color:#1f124e}
+  .role.publisher .tag{background:#ffd27a;color:#3a2c00}
+  .role.reader .tag{background:var(--surface-3);color:var(--muted)}
+  .role p{color:var(--muted);font-size:14px;margin:12px 0 0}
+
+  footer{border-top:1px solid var(--outline);padding:40px 0;color:var(--muted);text-align:center;font-size:14px}
+  .note{background:color-mix(in srgb,var(--primary) 10%,var(--surface-1));border:1px solid #36305a;border-radius:12px;
+    padding:12px 16px;font-size:13.5px;color:#cdbfff;margin-top:18px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="logo"><svg class="ic" viewBox="0 0 24 24" style="stroke:#fff"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 11a6 6 0 0012 0M12 17v3M9 20h6"/></svg></div>
+    <span class="brand">Podcast&nbsp;du&nbsp;jour</span>
+    <nav>
+      <a class="hideable" href="#features">Features</a>
+      <a class="hideable" href="#screens">Screenshots</a>
+      <a class="hideable" href="#install">Install</a>
+      <a href="https://github.com/lp177/podcaster">GitHub ↗</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="wrap">
+  <div class="hero">
+    <span class="pill">🎧 Self-hosted · open-source · Docker-ready</span>
+    <h1>Your daily news,<br>as a fresh AI podcast.</h1>
+    <p class="lede">One Material-design platform that researches today's news per theme, writes a two-host script with an LLM, voices it, and serves it to your listeners — with accounts, roles, email subscriptions and full offline playback.</p>
+    <div class="cta">
+      <a class="btn primary" href="#install">
+        <svg class="ic" viewBox="0 0 24 24"><path d="M12 4v11M8 11l4 4 4-4M5 20h14"/></svg> Quick start
+      </a>
+      <a class="btn ghost" href="https://github.com/lp177/podcaster">
+        <svg class="ic" viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .8.1-.6.3-1.1.6-1.4-2.2-.2-4.6-1.1-4.6-5a4 4 0 011-2.7c-.1-.3-.5-1.3.1-2.7 0 0 .8-.3 2.7 1a9.3 9.3 0 015 0c1.9-1.3 2.7-1 2.7-1 .6 1.4.2 2.4.1 2.7a4 4 0 011 2.7c0 3.9-2.4 4.8-4.6 5 .4.3.7.9.7 1.8v2.6c0 .3.2.6.7.5A10 10 0 0012 2z"/></svg> View source
+      </a>
+    </div>
+    <div class="tags">
+      <span class="pill">Material Design 3</span>
+      <span class="pill">Accounts &amp; roles</span>
+      <span class="pill">Offline PWA</span>
+      <span class="pill">Email subscriptions</span>
+      <span class="pill">5 languages</span>
+    </div>
+  </div>
+
+  <div class="shot-hero"><img src="screenshots/today.png" alt="Podcast du jour — today view" loading="lazy" /></div>
+</div>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="wrap">
+    <span class="eyebrow">Everything included</span>
+    <h2 class="title">A complete podcast platform</h2>
+    <p class="sub">Not a demo — a self-hostable product with the pieces a real listener-facing app needs.</p>
+    <div class="grid">
+      <div class="feat"><div class="fi"><svg class="ic" viewBox="0 0 24 24"><path d="M13 3L4 14h6l-1 7 9-11h-6z"/></svg></div>
+        <h3>Fresh news every run</h3><p>Gemini with Google-Search grounding pulls the last 48 h, with RSS and plain-LLM fallbacks. A memory file skips stories already covered.</p></div>
+      <div class="feat"><div class="fi"><svg class="ic" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg></div>
+        <h3>Provider fallback</h3><p>LLM: Gemini → OpenAI → Anthropic → Ollama. TTS: Gemini → OpenAI → Edge (free, always available). Bring any one key.</p></div>
+      <div class="feat"><div class="fi"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v3M12 18v3M21 12h-3M6 12H3M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1M18.4 18.4l-2.1-2.1M7.7 7.7L5.6 5.6"/></svg></div>
+        <h3>Material Design UI</h3><p>Tonal surfaces, paper elevation and real touch ripples on every control. Built as a no-build Vue + custom Material components.</p></div>
+      <div class="feat"><div class="fi"><svg class="ic" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5 6-5s6 1.7 6 5"/><path d="M16 5.2A3.2 3.2 0 0117 11"/></svg></div>
+        <h3>Accounts &amp; roles</h3><p>Cookie-session auth with three roles — admin, publisher, reader. Publishing is gated; the first account becomes the admin.</p></div>
+      <div class="feat"><div class="fi"><svg class="ic" viewBox="0 0 24 24"><path d="M2 2l20 20"/><path d="M8.5 16.4a5 5 0 017 0M5 12.9a10 10 0 0114 0"/><path d="M12 20h.01"/></svg></div>
+        <h3>Offline playback</h3><p>Installable PWA. Tap “Save offline” and a service worker caches the audio — your saved episodes play with no connection.</p></div>
+      <div class="feat"><div class="fi"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4 7l8 6 8-6"/></svg></div>
+        <h3>Email subscriptions</h3><p>Readers subscribe to subjects and get an email with a private listen link whenever a new episode drops.</p></div>
+      <div class="feat"><div class="fi"><svg class="ic" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M4 9h16M8 3v4M16 3v4"/></svg></div>
+        <h3>Scheduling</h3><p>Schedule themes daily or weekly. A single hourly cron entry — or the bundled scheduler container — fires what’s due.</p></div>
+      <div class="feat"><div class="fi"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.8 2.7 2.8 15 0 18M12 3c-2.8 2.7-2.8 15 0 18"/></svg></div>
+        <h3>Multilingual</h3><p>French, English, Spanish, German, Italian — with native voices per provider, and one-click regeneration into another language.</p></div>
+      <div class="feat"><div class="fi"><svg class="ic" viewBox="0 0 24 24"><circle cx="6" cy="12" r="2.4"/><circle cx="17" cy="6" r="2.4"/><circle cx="17" cy="18" r="2.4"/><path d="M8.1 11l6.8-3.8M8.1 13l6.8 3.8"/></svg></div>
+        <h3>Private share links</h3><p>Mint an unguessable <code>/s/&lt;key&gt;</code> link — listen with no login, like a password. Perfect for sharing one episode.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SCREENSHOTS -->
+<section id="screens">
+  <div class="wrap">
+    <span class="eyebrow">Take a look</span>
+    <h2 class="title">Screenshots</h2>
+    <p class="sub">The real app — captured straight from the running server.</p>
+    <div class="gallery">
+      <div class="gcard"><img src="screenshots/login.png" alt="Sign in" loading="lazy"><div class="cap"><b>Sign in</b><span>First account becomes the admin</span></div></div>
+      <div class="gcard"><img src="screenshots/today.png" alt="Today" loading="lazy"><div class="cap"><b>Today</b><span>One fresh edition per theme, with player</span></div></div>
+      <div class="gcard"><img src="screenshots/offline.png" alt="Offline" loading="lazy"><div class="cap"><b>Offline</b><span>Saved episodes, available without a connection</span></div></div>
+      <div class="gcard"><img src="screenshots/create.png" alt="Create" loading="lazy"><div class="cap"><b>Create a theme</b><span>Describe a subject, schedule it</span></div></div>
+      <div class="gcard"><img src="screenshots/admin.png" alt="Accounts" loading="lazy"><div class="cap"><b>Accounts</b><span>Manage roles &amp; subscriptions</span></div></div>
+      <div class="gcard"><img src="screenshots/settings.png" alt="Settings" loading="lazy"><div class="cap"><b>Settings</b><span>API keys, email &amp; scheduler</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ROLES -->
+<section>
+  <div class="wrap">
+    <span class="eyebrow">Built for teams</span>
+    <h2 class="title">Three roles, clear boundaries</h2>
+    <div class="rolegrid">
+      <div class="role admin"><span class="tag">ADMIN</span><p>Everything — manage users &amp; roles, API keys, the SMTP setup and the scheduler. The first registered account.</p></div>
+      <div class="role publisher"><span class="tag">PUBLISHER</span><p>Create themes, generate episodes on demand and schedule them. Cannot touch users or system settings.</p></div>
+      <div class="role reader"><span class="tag">READER</span><p>The default. Listen, save episodes offline, subscribe to subjects and get notified by email. No publishing.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTALL -->
+<section id="install">
+  <div class="wrap">
+    <span class="eyebrow">Get running</span>
+    <h2 class="title">Install &amp; deploy</h2>
+    <p class="sub">Ship it in a container, or run it straight from Python. You only need one LLM key to start — audio works for free via Edge TTS.</p>
+    <div class="cols">
+      <div>
+        <div class="codecard">
+          <div class="bar"><i></i><i></i><i></i>&nbsp; Docker / Podman</div>
+<pre><span class="c"># 1 — configure your keys</span>
+cp .env.example .env
+<span class="c"># add at least GEMINI_API_KEY in .env</span>
+
+<span class="c"># 2 — build &amp; run</span>
+docker compose up -d
+<span class="c"># or: podman-compose up -d</span>
+
+<span class="c"># 3 — open the app</span>
+<span class="v">http://127.0.0.1:8077</span></pre>
+        </div>
+        <div class="note">The first account you create becomes the <b>admin</b>. The bundled <code>scheduler</code> service fires due schedules hourly — no host cron needed.</div>
+      </div>
+      <div>
+        <div class="codecard">
+          <div class="bar"><i></i><i></i><i></i>&nbsp; Local (Python 3.13)</div>
+<pre>python -m venv .venv &amp;&amp; <span class="k">source</span> .venv/bin/activate
+pip install -r requirements.txt
+
+cp .env.example .env   <span class="c"># add a key</span>
+python server.py       <span class="c"># http://127.0.0.1:8077</span>
+
+<span class="c"># generate from the CLI too:</span>
+python generate.py markets-finance <span class="v">--lang en --minutes 12</span></pre>
+        </div>
+        <div class="note">No paid TTS key? Leave them blank — <b>Edge TTS</b> voices every episode for free.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section>
+  <div class="wrap">
+    <span class="eyebrow">Under the hood</span>
+    <h2 class="title">From headlines to audio</h2>
+    <div class="pipeline">
+      <div class="step"><b>01 · Research</b><h4>Fresh sources</h4><p>Grounded web search gathers the last 48 h for the theme, skipping anything already covered.</p></div>
+      <div class="step"><b>02 · Script</b><h4>Two-host dialogue</h4><p>An LLM writes a tight anchor + analyst briefing at your target length and language.</p></div>
+      <div class="step"><b>03 · Voice</b><h4>Text-to-speech</h4><p>The script is voiced with native per-language voices and saved as an MP3.</p></div>
+      <div class="step"><b>04 · Publish</b><h4>Catalog &amp; notify</h4><p>It lands in the catalog, retention prunes old episodes, and subscribers get an email.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>🎧 <b>Podcast du jour</b> — built on the <a href="https://github.com/souzatharsis/podcastfy">podcastfy</a> engine.</p>
+    <p>Self-hosted &amp; open-source · <a href="https://github.com/lp177/podcaster">GitHub</a></p>
+  </div>
+</footer>
+
+</body>
+</html>

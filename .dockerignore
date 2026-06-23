@@ -1,0 +1,13 @@
+# Mirrors .containerignore so `docker build` and `podman build` from the
+# Containerfile (which does `COPY . .`) produce identical images and never
+# bake secrets/state (.env, data/) into the layer.
+.git
+.gitignore
+__pycache__
+**/__pycache__
+*.pyc
+data
+.venv
+venv
+.env
+*.log

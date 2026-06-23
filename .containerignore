@@ -1,0 +1,12 @@
+# Keep the build context lean and secrets/state out of the image.
+# data/ -> bind-mounted to /media/library/podcast at runtime; .env -> bind-mounted.
+.git
+.gitignore
+__pycache__
+**/__pycache__
+*.pyc
+data
+.venv
+venv
+.env
+*.log

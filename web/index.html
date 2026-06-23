@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Podcast du jour</title>
+  <meta name="description" content="Daily, fresh-news AI podcasts per theme — listen, create, schedule and save offline." />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <meta name="theme-color" content="#0e0e13" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/icon-192.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Podcast du jour" />
+</head>
+<body>
+  <!-- ============================ icon sprite ============================ -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M8 11l4 4 4-4M5 20h14"/></symbol>
+    <symbol id="i-share" viewBox="0 0 24 24"><circle cx="6" cy="12" r="2.4"/><circle cx="17" cy="6" r="2.4"/><circle cx="17" cy="18" r="2.4"/><path d="M8.1 11l6.8-3.8M8.1 13l6.8 3.8"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 9a6 6 0 10-12 0c0 6-2.5 8-2.5 8h17S18 15 18 9z"/><path d="M10 21a2 2 0 004 0"/></symbol>
+    <symbol id="i-bell-off" viewBox="0 0 24 24"><path d="M18 9a6 6 0 00-9.3-5M5.6 7.2A6 6 0 005.5 9c0 6-2.5 8-2.5 8h13"/><path d="M10 21a2 2 0 004 0"/><path d="M3 3l18 18"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v3M12 18v3M21 12h-3M6 12H3M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1M18.4 18.4l-2.1-2.1M7.7 7.7L5.6 5.6"/></symbol>
+    <symbol id="i-add" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 4H6a2 2 0 00-2 2v12a2 2 0 002 2h3"/><path d="M16 8l4 4-4 4M9 12h11"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.4 8.2-8 9-4.6-.8-8-4-8-9V6z"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.8 2.7 2.8 15 0 18M12 3c-2.8 2.7-2.8 15 0 18"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 20V8M8 12l4-4 4 4M5 4h14"/></symbol>
+    <symbol id="i-sound" viewBox="0 0 24 24"><path d="M5 9v6h4l5 4V5L9 9z"/><path d="M17 9a4 4 0 010 6"/></symbol>
+    <symbol id="i-offline" viewBox="0 0 24 24"><path d="M2 2l20 20"/><path d="M8.5 16.4a5 5 0 017 0M5 12.9a10 10 0 0114 0"/><path d="M12 20h.01"/></symbol>
+    <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c0-3.6 3.1-5.5 7-5.5s7 1.9 7 5.5"/></symbol>
+    <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 11a6 6 0 0012 0M12 17v3M9 20h6"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4 7l8 6 8-6"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M4 9h16M8 3v4M16 3v4"/></symbol>
+    <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l2 2M14 9l2 2"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 3L4 14h6l-1 7 9-11h-6z"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5 6-5s6 1.7 6 5"/><path d="M16 5.2A3.2 3.2 0 0117 11M17.5 15c2.5.4 4.5 2 4.5 5"/></symbol>
+  </svg>
+
+  <div id="app" v-cloak>
+    <!-- ============================ AUTH SCREEN ======================= -->
+    <div class="auth-wrap" v-if="!user">
+      <div class="auth-card">
+        <div class="logo"><svg class="ic lg"><use href="#i-mic"></use></svg></div>
+        <h1>Podcast du jour</h1>
+        <p class="sub">{{ authMode==='login' ? 'Connectez-vous pour écouter et publier.' : 'Créez votre compte.' }}</p>
+
+        <div class="first-note" v-if="needsSetup">
+          ✨ Premier compte : vous deviendrez <b>administrateur</b>.
+        </div>
+        <div class="auth-err" v-if="authError">{{ authError }}</div>
+
+        <div class="field" v-if="authMode==='register'">
+          <label>Nom</label>
+          <input v-model="auth.name" placeholder="Votre nom" autocomplete="name" />
+        </div>
+        <div class="field">
+          <label>Email</label>
+          <input v-model="auth.email" type="email" placeholder="vous@exemple.com" autocomplete="email" @keyup.enter="submitAuth" />
+        </div>
+        <div class="field">
+          <label>Mot de passe</label>
+          <input v-model="auth.password" type="password" placeholder="8 caractères minimum" :autocomplete="authMode==='login' ? 'current-password' : 'new-password'" @keyup.enter="submitAuth" />
+        </div>
+        <button class="btn filled block ripple-host" v-ripple :disabled="authBusy" @click="submitAuth">
+          <span v-if="authBusy" class="spinner"></span>
+          {{ authMode==='login' ? 'Se connecter' : (needsSetup ? 'Créer le compte admin' : 'Créer mon compte') }}
+        </button>
+        <p class="switch">
+          {{ authMode==='login' ? "Pas encore de compte ?" : "Déjà inscrit ?" }}
+          <button @click="toggleAuthMode">{{ authMode==='login' ? "Créer un compte" : "Se connecter" }}</button>
+        </p>
+      </div>
+    </div>
+
+    <!-- ============================ MAIN APP ========================== -->
+    <template v-else>
+      <header class="app">
+        <div class="brand">
+          <span class="logo"><svg class="ic"><use href="#i-mic"></use></svg></span>
+          <div>Podcast du jour<small>fresh-news AI podcasts</small></div>
+        </div>
+
+        <nav class="tabs">
+          <button :class="{active: view==='today'}" @click="view='today'" v-ripple class="ripple-host">
+            <svg class="ic sm"><use href="#i-bolt"></use></svg><span class="lbl">Aujourd'hui</span>
+          </button>
+          <button v-if="canPublish" :class="{active: view==='create'}" @click="view='create'" v-ripple class="ripple-host">
+            <svg class="ic sm"><use href="#i-add"></use></svg><span class="lbl">Créer</span>
+          </button>
+          <button :class="{active: view==='offline'}" @click="view='offline'" v-ripple class="ripple-host">
+            <svg class="ic sm"><use href="#i-offline"></use></svg><span class="lbl">Hors-ligne</span>
+            <span class="badge" v-if="saved.length">{{ saved.length }}</span>
+          </button>
+          <button v-if="isAdmin" :class="{active: view==='settings'}" @click="view='settings'" v-ripple class="ripple-host">
+            <svg class="ic sm"><use href="#i-settings"></use></svg><span class="lbl">Réglages</span>
+          </button>
+          <button v-if="isAdmin" :class="{active: view==='admin'}" @click="view='admin'" v-ripple class="ripple-host">
+            <svg class="ic sm"><use href="#i-users"></use></svg><span class="lbl">Comptes</span>
+          </button>
+        </nav>
+
+        <div class="acct">
+          <button class="avatar ripple-host" v-ripple @click="menuOpen=!menuOpen">{{ initials }}</button>
+          <div class="menu-pop" v-if="menuOpen">
+            <div class="who">
+              <div class="nm">{{ user.name }}</div>
+              <div class="em">{{ user.email }}</div>
+              <div style="margin-top:8px"><span class="role-pill" :class="user.role">{{ roleLabel(user.role) }}</span></div>
+            </div>
+            <hr />
+            <button @click="view='offline'; menuOpen=false" v-ripple class="ripple-host">
+              <svg class="ic"><use href="#i-offline"></use></svg> Mes épisodes hors-ligne
+            </button>
+            <button @click="logout" v-ripple class="ripple-host">
+              <svg class="ic"><use href="#i-logout"></use></svg> Se déconnecter
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <div class="banner offline" v-if="!online">
+          <svg class="ic"><use href="#i-offline"></use></svg>
+          Vous êtes hors-ligne — seuls vos épisodes enregistrés sont disponibles.
+        </div>
+
+        <!-- ===================== TODAY ===================== -->
+        <section v-if="view==='today'">
+          <h1 class="view-title">Podcasts du jour</h1>
+          <p class="view-sub">Une édition fraîche par thématique. {{ canPublish ? 'Générez à la demande ou' : 'Abonnez-vous pour être notifié et' }} ouvrez l'historique des 7 derniers jours.</p>
+
+          <div class="grid" v-if="themes.length">
+            <article class="card" v-for="t in themes" :key="t.key" :style="{'--card-accent': t.accent}">
+              <div class="head">
+                <span class="icon">{{ t.icon }}</span>
+                <div class="grow">
+                  <div class="title">{{ t.title }}</div>
+                  <div class="summary">{{ t.summary }}</div>
+                </div>
+                <button class="icon-btn ripple-host" :class="{on: t.subscribed}" v-ripple
+                        :title="t.subscribed ? 'Abonné — se désabonner' : 'S\'abonner (notification email)'"
+                        @click="toggleSub(t)">
+                  <svg class="ic"><use :href="t.subscribed ? '#i-bell' : '#i-bell-off'"></use></svg>
+                </button>
+                <button class="icon-btn ripple-host" v-ripple title="Historique (7 jours)" @click="openHistory(t)">
+                  <svg class="ic"><use href="#i-clock"></use></svg>
+                </button>
+              </div>
+
+              <episode-card v-if="t.today" :episode="t.today" :languages="languages" :can-publish="canPublish"
+                :saved="isSaved(t.today.id)" :busy="busySlot('ep:'+t.today.id)"
+                @share="doShare" @regenerate="doRegenerate" @delete="doDelete" @save="saveOffline"></episode-card>
+
+              <div v-else>
+                <div class="empty" v-if="!jobs['theme:'+t.key]">Pas encore d'épisode aujourd'hui.</div>
+                <pre class="gen-status" v-else>{{ jobs['theme:'+t.key].text }}</pre>
+              </div>
+
+              <div class="actions" v-if="!t.today && canPublish">
+                <button class="btn filled ripple-host" v-ripple :disabled="busySlot('theme:'+t.key)" @click="generate(t)">
+                  <span v-if="jobs['theme:'+t.key]" class="spinner"></span>
+                  <svg v-else class="ic"><use href="#i-bolt"></use></svg>
+                  {{ jobs['theme:'+t.key] ? 'Génération…' : 'Générer maintenant' }}
+                </button>
+              </div>
+            </article>
+          </div>
+          <div class="empty" v-else>Aucune thématique pour l'instant.</div>
+        </section>
+
+        <!-- ===================== CREATE ===================== -->
+        <section v-if="view==='create' && canPublish">
+          <h1 class="view-title">Créer une thématique</h1>
+          <p class="view-sub">Décrivez le sujet ; l'IA cherche l'actualité fraîche à chaque génération.</p>
+
+          <div class="panel">
+            <div class="row">
+              <div class="field" style="flex:0 0 96px">
+                <label>Icône</label>
+                <input v-model="form.icon" maxlength="2" />
+              </div>
+              <div class="field"><label>Titre</label><input v-model="form.title" placeholder="Ex. Sport & Cyclisme" /></div>
+            </div>
+            <div class="field"><label>Résumé court</label><input v-model="form.summary" placeholder="Une phrase affichée sur la carte" /></div>
+            <div class="field">
+              <label>Brief de recherche</label>
+              <textarea v-model="form.research_brief" placeholder="Décrivez précisément les sujets, zones géographiques, angles…"></textarea>
+              <span class="hint">Plus c'est précis, meilleure est la sélection de l'actualité.</span>
+            </div>
+            <div class="row">
+              <div class="field">
+                <label>Langue</label>
+                <select v-model="form.language"><option v-for="l in languages" :value="l.code">{{ l.label }}</option></select>
+              </div>
+              <div class="field">
+                <label>Durée</label>
+                <div class="slider-row">
+                  <input type="range" :min="duration.min" :max="duration.max" v-model.number="form.minutes" />
+                  <output>{{ form.minutes }} min</output>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label>Génération</label>
+              <div class="segmented">
+                <button :class="{sel: form.mode==='once'}" @click="form.mode='once'" v-ripple class="ripple-host">Une fois</button>
+                <button :class="{sel: form.mode==='daily'}" @click="form.mode='daily'" v-ripple class="ripple-host">Chaque jour</button>
+                <button :class="{sel: form.mode==='weekly'}" @click="form.mode='weekly'" v-ripple class="ripple-host">Chaque semaine</button>
+              </div>
+            </div>
+            <div class="row" v-if="form.mode!=='once'">
+              <div class="field" v-if="form.mode==='weekly'">
+                <label>Jour</label>
+                <select v-model.number="form.weekday"><option v-for="(d,i) in weekdays" :value="i">{{ d }}</option></select>
+              </div>
+              <div class="field">
+                <label>Heure (planificateur horaire)</label>
+                <select v-model.number="form.hour"><option v-for="h in 24" :value="h-1">{{ String(h-1).padStart(2,'0') }}:00</option></select>
+              </div>
+            </div>
+            <pre class="gen-status" v-if="createJob">{{ createJob.text }}</pre>
+            <div class="actions">
+              <button class="btn filled ripple-host" v-ripple :disabled="!canCreate || (createJob && createJob.status==='running')" @click="createTheme">
+                <span v-if="createJob && createJob.status==='running'" class="spinner"></span>
+                <svg v-else class="ic"><use href="#i-add"></use></svg>
+                {{ form.mode==='once' ? 'Créer & générer' : 'Créer & planifier' }}
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================== OFFLINE ===================== -->
+        <section v-if="view==='offline'">
+          <h1 class="view-title">Hors-ligne</h1>
+          <p class="view-sub">Vos épisodes enregistrés sur cet appareil — disponibles sans connexion.</p>
+          <div class="grid" v-if="saved.length">
+            <article class="card" v-for="e in saved" :key="e.id" :style="{'--card-accent': e.accent}">
+              <div class="head">
+                <span class="icon">{{ e.icon }}</span>
+                <div class="grow"><div class="title">{{ e.theme_title }}</div><div class="summary">{{ e.title }}</div></div>
+                <span class="chip accent"><svg class="ic sm"><use href="#i-check"></use></svg> hors-ligne</span>
+              </div>
+              <div class="meta">
+                <span class="chip">{{ e.date }}</span>
+                <span class="chip">{{ e.language_label || e.language }}</span>
+                <span class="chip" v-if="e.minutes">{{ e.minutes }} min</span>
+              </div>
+              <div class="ep-summary" v-if="e.summary">{{ e.summary }}</div>
+              <audio controls preload="none" :src="e.audio_url"></audio>
+              <div class="actions">
+                <a class="btn tonal ripple-host" v-ripple :href="e.audio_url" :download="e.theme_key+'-'+e.date+'.mp3'"><svg class="ic"><use href="#i-download"></use></svg> Télécharger</a>
+                <button class="btn text danger ripple-host" v-ripple @click="removeOffline(e)"><svg class="ic"><use href="#i-trash"></use></svg> Retirer</button>
+              </div>
+            </article>
+          </div>
+          <div class="empty" v-else>
+            Aucun épisode enregistré. Sur un épisode, touchez <b>« Enregistrer hors-ligne »</b> pour l'écouter sans connexion.
+          </div>
+        </section>
+
+        <!-- ===================== SETTINGS (admin) ===================== -->
+        <section v-if="view==='settings' && isAdmin">
+          <h1 class="view-title">Réglages</h1>
+          <p class="view-sub">Clés API, notifications email et planificateur.</p>
+
+          <div class="panel">
+            <div class="section-h"><svg class="ic"><use href="#i-key"></use></svg><h2>Clés API</h2></div>
+            <p class="desc">Enregistrées dans <code>.env</code>. Ordre de repli — LLM : Gemini → OpenAI → Anthropic → Ollama. TTS : Gemini → OpenAI → Edge (gratuit).</p>
+            <div class="list-row" v-for="k in keys" :key="k.name">
+              <span class="dot" :class="{on: k.configured}"></span>
+              <div class="grow"><div class="nm">{{ k.label }}</div><div class="sub">{{ k.name }} · {{ k.hint }}</div></div>
+              <input class="flat" :placeholder="k.configured ? k.preview : 'Non configurée'" v-model="keyInputs[k.name]" />
+            </div>
+            <div class="actions" style="margin-top:16px">
+              <button class="btn filled ripple-host" v-ripple @click="saveKeys"><svg class="ic"><use href="#i-check"></use></svg> Enregistrer les clés</button>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="section-h"><svg class="ic"><use href="#i-mail"></use></svg><h2>Notifications email</h2></div>
+            <p class="desc">
+              <span class="dot" :class="{on: smtpConfigured}" style="display:inline-block;vertical-align:middle;margin-right:8px"></span>
+              {{ smtpConfigured ? 'SMTP configuré — les abonnés sont notifiés des nouveaux épisodes.' : 'SMTP non configuré. Renseignez SMTP_HOST / SMTP_FROM dans .env pour activer les emails.' }}
+            </p>
+          </div>
+
+          <div class="panel">
+            <div class="section-h"><svg class="ic"><use href="#i-calendar"></use></svg><h2>Planificateur</h2></div>
+            <p class="desc">Une seule tâche cron horaire déclenche le planificateur interne.</p>
+            <div class="list-row">
+              <span class="dot" :class="{on: cron.installed}"></span>
+              <span class="grow nm">{{ cron.installed ? 'Tâche cron horaire installée' : 'Tâche cron non installée' }}</span>
+              <button class="btn tonal ripple-host" v-ripple v-if="!cron.installed" @click="installCron">Installer</button>
+              <button class="btn text danger ripple-host" v-ripple v-else @click="uninstallCron">Retirer</button>
+            </div>
+            <div class="field" style="margin-top:12px"><span class="hint">Ou manuellement (crontab -e) :</span>
+              <input readonly :value="cron.line" @focus="$event.target.select()" /></div>
+
+            <div class="section-h" style="margin-top:22px"><h2>Programmations</h2></div>
+            <div class="empty" v-if="!schedules.length">Aucune programmation.</div>
+            <div class="list-row" v-for="s in schedules" :key="s.id">
+              <span class="dot" :class="{on: s.enabled}"></span>
+              <span class="grow nm">{{ themeTitle(s.theme_key) }} <span class="sub">{{ s.human }} · {{ s.language }} · {{ s.minutes }}min</span></span>
+              <button class="btn text ripple-host" v-ripple @click="toggleSchedule(s)">{{ s.enabled ? 'Suspendre' : 'Activer' }}</button>
+              <button class="btn text danger ripple-host" v-ripple @click="deleteSchedule(s)">Supprimer</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================== ADMIN (users) ===================== -->
+        <section v-if="view==='admin' && isAdmin">
+          <h1 class="view-title">Comptes</h1>
+          <p class="view-sub">Gérez les rôles. <b>Admin</b> : tout. <b>Publisher</b> : crée et publie. <b>Reader</b> : écoute et s'abonne.</p>
+          <div class="panel">
+            <div class="list-row" v-for="u in users" :key="u.id">
+              <span class="avatar" style="width:34px;height:34px;font-size:13px">{{ initialsOf(u) }}</span>
+              <div class="grow"><div class="nm">{{ u.name || u.email.split('@')[0] }} <span class="role-pill" :class="u.role">{{ roleLabel(u.role) }}</span></div>
+                <div class="sub">{{ u.email }} · {{ u.subscriptions.length }} abonnement(s)</div></div>
+              <select class="flat" style="max-width:150px" :value="u.role" @change="changeRole(u, $event.target.value)" :disabled="u.id===user.id">
+                <option value="reader">Reader</option><option value="publisher">Publisher</option><option value="admin">Admin</option>
+              </select>
+              <button class="btn text danger ripple-host" v-ripple v-if="u.id!==user.id" @click="deleteUser(u)"><svg class="ic"><use href="#i-trash"></use></svg></button>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <button class="fab ripple-host" v-ripple v-if="view==='today' && canPublish" @click="view='create'">
+        <svg class="ic"><use href="#i-add"></use></svg> Nouvelle thématique
+      </button>
+
+      <!-- ===================== HISTORY DIALOG ===================== -->
+      <dialog ref="historyDialog" closedby="any" aria-label="Historique">
+        <div class="dialog-head">
+          <span class="icon" style="width:34px;height:34px;font-size:18px" v-if="history.theme">{{ history.theme.icon }}</span>
+          <span class="title">{{ history.theme ? history.theme.title : '' }} — 7 derniers jours</span>
+          <button class="icon-btn close ripple-host" v-ripple @click="closeHistory"><svg class="ic"><use href="#i-close"></use></svg></button>
+        </div>
+        <div class="dialog-body">
+          <div class="empty" v-if="!history.episodes.length">Aucun épisode sur les 7 derniers jours.</div>
+          <episode-card v-for="e in history.episodes" :key="e.id" :episode="e" :languages="languages" :can-publish="canPublish"
+            :saved="isSaved(e.id)" :busy="busySlot('ep:'+e.id)"
+            @share="doShare" @regenerate="doRegenerate" @delete="doDelete" @save="saveOffline"></episode-card>
+        </div>
+      </dialog>
+    </template>
+
+    <div class="toast" v-if="toast"><svg class="ic sm"><use href="#i-check"></use></svg>{{ toast }}</div>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>

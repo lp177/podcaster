@@ -1,0 +1,22 @@
+# Web app
+fastapi>=0.110
+uvicorn[standard]>=0.27
+python-multipart>=0.0.9
+pydantic>=2.6
+
+# Podcast generation engine (pulls in langchain, litellm, pydub, …)
+podcastfy==0.4.3
+python-dotenv>=1.0
+
+# Providers: research + scripting
+google-genai>=1.0
+langchain-google-genai>=2.0
+langchain-community>=0.3
+
+# Fresh sources + free TTS
+feedparser>=6.0
+edge-tts>=6.1
+playwright>=1.40   # imported by podcastfy at load (browser binary not needed here)
+
+# Python 3.13 removed the stdlib `audioop` module that pydub needs.
+audioop-lts>=0.2; python_version >= '3.13'

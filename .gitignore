@@ -1,0 +1,13 @@
+.env
+__pycache__/
+*.pyc
+data/audio/
+data/transcripts/
+data/episodes/
+data/memory/
+data/shares/
+data/custom_themes.json
+data/schedules.json
+data/users.json
+data/sessions.json
+data/*.log
