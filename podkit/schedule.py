@@ -1,4 +1,5 @@
 import json
+import shutil
 import subprocess
 import sys
 from datetime import datetime
@@ -97,8 +98,25 @@ def cron_line() -> str:
     return f"0 * * * * {cron_command()} {CRON_MARKER}"
 
 
+def crontab_available() -> bool:
+    """Host cron is absent in containers (and some minimal hosts); detect it so
+    status checks degrade gracefully instead of raising FileNotFoundError."""
+    return shutil.which("crontab") is not None
+
+
+_NO_CRONTAB = (
+    "crontab is not available here — schedule with the bundled scheduler instead "
+    "(run `python scheduler.py loop`, or the `scheduler` service in docker-compose)."
+)
+
+
 def _current_crontab() -> str:
-    result = subprocess.run(["crontab", "-l"], capture_output=True, text=True)
+    if not crontab_available():
+        return ""
+    try:
+        result = subprocess.run(["crontab", "-l"], capture_output=True, text=True)
+    except OSError:
+        return ""
     return result.stdout if result.returncode == 0 else ""
 
 
@@ -107,6 +125,8 @@ def cron_installed() -> bool:
 
 
 def install_cron() -> str:
+    if not crontab_available():
+        raise RuntimeError(_NO_CRONTAB)
     lines = [line for line in _current_crontab().splitlines() if CRON_MARKER not in line]
     lines.append(cron_line())
     payload = "\n".join(lines) + "\n"
@@ -115,6 +135,8 @@ def install_cron() -> str:
 
 
 def uninstall_cron():
+    if not crontab_available():
+        return
     lines = [line for line in _current_crontab().splitlines() if CRON_MARKER not in line]
     payload = ("\n".join(lines) + "\n") if lines else ""
     subprocess.run(["crontab", "-"], input=payload, text=True, check=True)

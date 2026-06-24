@@ -1,4 +1,4 @@
-# Containerfile — "Podcast du jour" (FastAPI/uvicorn), built on the `podcastfy`
+# Containerfile — "Podcaster" (FastAPI/uvicorn), built on the `podcastfy`
 # engine. Built + run rootless under the `podman` user on flame (see
 # deploy/flame/podcastify-deploy.sh). No chromium (playwright unused; research uses
 # Gemini + RSS), but ffmpeg IS required (pydub, via podcastfy audio assembly).
@@ -16,9 +16,10 @@ ENV PYTHONUNBUFFERED=1 \
 
 WORKDIR /app
 
-# ffmpeg: pydub audio assembly (the toolchain is already in the full image).
+# ffmpeg: pydub audio assembly. cron: in-container scheduling (provides the
+# `crontab` binary + daemon used by the Settings → scheduler feature).
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends ffmpeg \
+    && apt-get install -y --no-install-recommends ffmpeg cron \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.lock.txt ./
@@ -27,6 +28,7 @@ RUN pip install -r requirements.lock.txt
 COPY . .
 
 EXPOSE 8077
-# server.py's __main__ binds 127.0.0.1 (unreachable from outside the container);
-# run uvicorn on 0.0.0.0 so the rootless PublishPort (host 127.0.0.1:8077) reaches it.
-CMD ["uvicorn", "server:app", "--host", "0.0.0.0", "--port", "8077"]
+# Start the cron daemon (so schedules installed from the UI actually fire), then
+# run uvicorn on 0.0.0.0 so the rootless PublishPort (host 127.0.0.1:8077) reaches
+# it. `;` not `&&` — a cron hiccup must never stop the web server from starting.
+CMD ["sh", "-c", "/usr/sbin/cron; exec uvicorn server:app --host 0.0.0.0 --port 8077"]

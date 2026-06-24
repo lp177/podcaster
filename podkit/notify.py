@@ -17,7 +17,7 @@ def _send_all(theme_key: str, meta: dict):
     title = meta.get("title", theme_key)
     summary = meta.get("summary", "")
     subject = f"🎧 New episode: {title}"
-    text = f"{title}\n\n{summary}\n\nListen: {listen}\n\n— Podcast du jour"
+    text = f"{title}\n\n{summary}\n\nListen: {listen}\n\n— Podcaster"
     html = (
         f"<div style='font-family:system-ui,sans-serif;max-width:520px'>"
         f"<h2 style='margin:0 0 8px'>{meta.get('icon', '🎧')} {title}</h2>"

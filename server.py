@@ -15,7 +15,7 @@ from podkit.themes import Theme, all_themes, get_theme, save_custom_theme, delet
 
 ensure_dirs()
 env.load_env()
-app = FastAPI(title="Podcast du jour")
+app = FastAPI(title="Podcaster")
 
 JOBS: dict[str, dict] = {}
 _LOCK = threading.Lock()

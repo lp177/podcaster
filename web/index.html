@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Podcast du jour</title>
+  <title>Podcaster</title>
   <meta name="description" content="Daily, fresh-news AI podcasts per theme — listen, create, schedule and save offline." />
   <link rel="stylesheet" href="/styles.css" />
   <link rel="manifest" href="/manifest.webmanifest" />
@@ -12,7 +12,7 @@
   <link rel="apple-touch-icon" href="/icon-192.png" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-title" content="Podcast du jour" />
+  <meta name="apple-mobile-web-app-title" content="Podcaster" />
 </head>
 <body>
   <!-- ============================ icon sprite ============================ -->
@@ -50,7 +50,7 @@
     <div class="auth-wrap" v-if="!user">
       <div class="auth-card">
         <div class="logo"><svg class="ic lg"><use href="#i-mic"></use></svg></div>
-        <h1>Podcast du jour</h1>
+        <h1>Podcaster</h1>
         <p class="sub">{{ authMode==='login' ? 'Connectez-vous pour écouter et publier.' : 'Créez votre compte.' }}</p>
 
         <div class="first-note" v-if="needsSetup">
@@ -86,7 +86,7 @@
       <header class="app">
         <div class="brand">
           <span class="logo"><svg class="ic"><use href="#i-mic"></use></svg></span>
-          <div>Podcast du jour<small>fresh-news AI podcasts</small></div>
+          <div>Podcaster<small>self-hosted news podcasts</small></div>
         </div>
 
         <nav class="tabs">

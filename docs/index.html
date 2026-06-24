@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Podcast du jour — daily fresh-news AI podcasts</title>
-<meta name="description" content="A self-hosted, Material-design platform that generates daily, fresh-news AI podcasts per theme. Accounts & roles, email subscriptions, offline PWA, Docker-ready." />
+<title>Podcaster — self-hosted news podcasts on any subject</title>
+<meta name="description" content="Podcaster is a self-hosted, private platform that generates fresh news podcasts on any subject — on demand or scheduled. Your server, your keys, your data. Accounts, subscriptions and offline playback." />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-<meta property="og:title" content="Podcast du jour" />
-<meta property="og:description" content="Daily fresh-news AI podcasts per theme — Material UI, accounts & roles, offline PWA, Docker-ready." />
+<meta property="og:title" content="Podcaster — self-hosted news podcasts" />
+<meta property="og:description" content="Generate fresh news podcasts on any subject, on demand or scheduled — self-hosted, private, your keys and your data." />
 <meta property="og:url" content="https://lp177.github.io/podcaster/" />
 <meta property="og:image" content="https://lp177.github.io/podcaster/screenshots/today.png" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -118,7 +118,7 @@
 <header>
   <div class="wrap">
     <div class="logo"><svg class="ic" viewBox="0 0 24 24" style="stroke:#fff"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 11a6 6 0 0012 0M12 17v3M9 20h6"/></svg></div>
-    <span class="brand">Podcast&nbsp;du&nbsp;jour</span>
+    <span class="brand">Podcaster</span>
     <nav>
       <a class="hideable" href="#features">Features</a>
       <a class="hideable" href="#screens">Screenshots</a>
@@ -131,9 +131,9 @@
 <!-- HERO -->
 <div class="wrap">
   <div class="hero">
-    <span class="pill">🎧 Self-hosted · open-source · Docker-ready</span>
-    <h1>Your daily news,<br>as a fresh AI podcast.</h1>
-    <p class="lede">One Material-design platform that researches today's news per theme, writes a two-host script with an LLM, voices it, and serves it to your listeners — with accounts, roles, email subscriptions and full offline playback.</p>
+    <span class="pill">🔒 Self-hosted · private · open-source</span>
+    <h1>The news, as a podcast.<br>On your terms.</h1>
+    <p class="lede">Podcaster generates a fresh audio briefing on <em>any</em> subject — on demand or on a schedule — running on your own server, with your keys and your data. Give listeners accounts, subscriptions and offline playback. Nothing leaves your machine unless you share it.</p>
     <div class="cta">
       <a class="btn primary" href="#install">
         <svg class="ic" viewBox="0 0 24 24"><path d="M12 4v11M8 11l4 4 4-4M5 20h14"/></svg> Quick start
@@ -143,42 +143,44 @@
       </a>
     </div>
     <div class="tags">
-      <span class="pill">Material Design 3</span>
+      <span class="pill">Any subject</span>
+      <span class="pill">On-demand or scheduled</span>
       <span class="pill">Accounts &amp; roles</span>
-      <span class="pill">Offline PWA</span>
-      <span class="pill">Email subscriptions</span>
+      <span class="pill">Offline</span>
       <span class="pill">5 languages</span>
     </div>
   </div>
 
-  <div class="shot-hero"><img src="screenshots/today.png" alt="Podcast du jour — today view" loading="lazy" /></div>
+  <div class="shot-hero"><img src="screenshots/today.png" alt="Podcaster — a fresh episode for every subject" loading="lazy" /></div>
 </div>
 
 <!-- FEATURES -->
 <section id="features">
   <div class="wrap">
-    <span class="eyebrow">Everything included</span>
-    <h2 class="title">A complete podcast platform</h2>
-    <p class="sub">Not a demo — a self-hostable product with the pieces a real listener-facing app needs.</p>
+    <span class="eyebrow">Yours to run</span>
+    <h2 class="title">Own the whole stack</h2>
+    <p class="sub">A real listener-facing platform you host yourself — not a service you rent. Your subjects, your audience and your audio stay with you.</p>
     <div class="grid">
+      <div class="feat"><div class="fi"><svg class="ic" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.4 8.2-8 9-4.6-.8-8-4-8-9V6z"/></svg></div>
+        <h3>Self-hosted &amp; sovereign</h3><p>Runs entirely on your own machine or in a container. No SaaS, no account on someone else's platform, no middleman between you and your audio.</p></div>
+      <div class="feat"><div class="fi"><svg class="ic" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg></div>
+        <h3>Private by design</h3><p>Subjects, listeners and listening history never leave your server. An episode becomes shareable only when you mint a private link for it.</p></div>
       <div class="feat"><div class="fi"><svg class="ic" viewBox="0 0 24 24"><path d="M13 3L4 14h6l-1 7 9-11h-6z"/></svg></div>
-        <h3>Fresh news every run</h3><p>Gemini with Google-Search grounding pulls the last 48 h, with RSS and plain-LLM fallbacks. A memory file skips stories already covered.</p></div>
-      <div class="feat"><div class="fi"><svg class="ic" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg></div>
-        <h3>Provider fallback</h3><p>LLM: Gemini → OpenAI → Anthropic → Ollama. TTS: Gemini → OpenAI → Edge (free, always available). Bring any one key.</p></div>
-      <div class="feat"><div class="fi"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v3M12 18v3M21 12h-3M6 12H3M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1M18.4 18.4l-2.1-2.1M7.7 7.7L5.6 5.6"/></svg></div>
-        <h3>Material Design UI</h3><p>Tonal surfaces, paper elevation and real touch ripples on every control. Built as a no-build Vue + custom Material components.</p></div>
-      <div class="feat"><div class="fi"><svg class="ic" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5 6-5s6 1.7 6 5"/><path d="M16 5.2A3.2 3.2 0 0117 11"/></svg></div>
-        <h3>Accounts &amp; roles</h3><p>Cookie-session auth with three roles — admin, publisher, reader. Publishing is gated; the first account becomes the admin.</p></div>
-      <div class="feat"><div class="fi"><svg class="ic" viewBox="0 0 24 24"><path d="M2 2l20 20"/><path d="M8.5 16.4a5 5 0 017 0M5 12.9a10 10 0 0114 0"/><path d="M12 20h.01"/></svg></div>
-        <h3>Offline playback</h3><p>Installable PWA. Tap “Save offline” and a service worker caches the audio — your saved episodes play with no connection.</p></div>
-      <div class="feat"><div class="fi"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4 7l8 6 8-6"/></svg></div>
-        <h3>Email subscriptions</h3><p>Readers subscribe to subjects and get an email with a private listen link whenever a new episode drops.</p></div>
+        <h3>Any subject, on demand</h3><p>Describe a topic — tech, games, geopolitics, science, finance, sport — and get a fresh, sourced news episode in minutes.</p></div>
+      <div class="feat"><div class="fi"><svg class="ic" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg></div>
+        <h3>Fresh every run</h3><p>Grounded web search pulls the latest developments, with RSS and a plain-LLM fallback. It remembers what it covered so episodes don't repeat.</p></div>
+      <div class="feat"><div class="fi"><svg class="ic" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l2 2M14 9l2 2"/></svg></div>
+        <h3>Your keys, no lock-in</h3><p>Bring any one LLM key; providers fall back automatically and audio is free via Edge TTS. Point it at a local Ollama model to go fully offline.</p></div>
       <div class="feat"><div class="fi"><svg class="ic" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M4 9h16M8 3v4M16 3v4"/></svg></div>
-        <h3>Scheduling</h3><p>Schedule themes daily or weekly. A single hourly cron entry — or the bundled scheduler container — fires what’s due.</p></div>
+        <h3>Scheduled automatically</h3><p>Run subjects daily or weekly. A single hourly cron entry — or the bundled scheduler container — fires whatever is due.</p></div>
+      <div class="feat"><div class="fi"><svg class="ic" viewBox="0 0 24 24"><path d="M2 2l20 20"/><path d="M8.5 16.4a5 5 0 017 0M5 12.9a10 10 0 0114 0"/><path d="M12 20h.01"/></svg></div>
+        <h3>Listen offline</h3><p>Install it like an app, tap <em>Save offline</em>, and your episodes play with no connection — on the train, on a plane, anywhere.</p></div>
+      <div class="feat"><div class="fi"><svg class="ic" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5 6-5s6 1.7 6 5"/><path d="M16 5.2A3.2 3.2 0 0117 11"/></svg></div>
+        <h3>Accounts &amp; roles</h3><p>Run it just for yourself or open it to a household or team — admin, publisher and reader roles, with publishing gated.</p></div>
+      <div class="feat"><div class="fi"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4 7l8 6 8-6"/></svg></div>
+        <h3>Email subscriptions</h3><p>Readers subscribe to the subjects they care about and get a private listen link by email whenever a new episode drops.</p></div>
       <div class="feat"><div class="fi"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.8 2.7 2.8 15 0 18M12 3c-2.8 2.7-2.8 15 0 18"/></svg></div>
-        <h3>Multilingual</h3><p>French, English, Spanish, German, Italian — with native voices per provider, and one-click regeneration into another language.</p></div>
-      <div class="feat"><div class="fi"><svg class="ic" viewBox="0 0 24 24"><circle cx="6" cy="12" r="2.4"/><circle cx="17" cy="6" r="2.4"/><circle cx="17" cy="18" r="2.4"/><path d="M8.1 11l6.8-3.8M8.1 13l6.8 3.8"/></svg></div>
-        <h3>Private share links</h3><p>Mint an unguessable <code>/s/&lt;key&gt;</code> link — listen with no login, like a password. Perfect for sharing one episode.</p></div>
+        <h3>Multilingual</h3><p>French, English, Spanish, German, Italian — native voices, with one-click regeneration of any episode into another language.</p></div>
     </div>
   </div>
 </section>
@@ -191,9 +193,9 @@
     <p class="sub">The real app — captured straight from the running server.</p>
     <div class="gallery">
       <div class="gcard"><img src="screenshots/login.png" alt="Sign in" loading="lazy"><div class="cap"><b>Sign in</b><span>First account becomes the admin</span></div></div>
-      <div class="gcard"><img src="screenshots/today.png" alt="Today" loading="lazy"><div class="cap"><b>Today</b><span>One fresh edition per theme, with player</span></div></div>
+      <div class="gcard"><img src="screenshots/today.png" alt="Today" loading="lazy"><div class="cap"><b>Today</b><span>One fresh episode per subject, with player</span></div></div>
       <div class="gcard"><img src="screenshots/offline.png" alt="Offline" loading="lazy"><div class="cap"><b>Offline</b><span>Saved episodes, available without a connection</span></div></div>
-      <div class="gcard"><img src="screenshots/create.png" alt="Create" loading="lazy"><div class="cap"><b>Create a theme</b><span>Describe a subject, schedule it</span></div></div>
+      <div class="gcard"><img src="screenshots/create.png" alt="Create" loading="lazy"><div class="cap"><b>Create a subject</b><span>Describe any topic, schedule it</span></div></div>
       <div class="gcard"><img src="screenshots/admin.png" alt="Accounts" loading="lazy"><div class="cap"><b>Accounts</b><span>Manage roles &amp; subscriptions</span></div></div>
       <div class="gcard"><img src="screenshots/settings.png" alt="Settings" loading="lazy"><div class="cap"><b>Settings</b><span>API keys, email &amp; scheduler</span></div></div>
     </div>
@@ -207,7 +209,7 @@
     <h2 class="title">Three roles, clear boundaries</h2>
     <div class="rolegrid">
       <div class="role admin"><span class="tag">ADMIN</span><p>Everything — manage users &amp; roles, API keys, the SMTP setup and the scheduler. The first registered account.</p></div>
-      <div class="role publisher"><span class="tag">PUBLISHER</span><p>Create themes, generate episodes on demand and schedule them. Cannot touch users or system settings.</p></div>
+      <div class="role publisher"><span class="tag">PUBLISHER</span><p>Create subjects, generate episodes on demand and schedule them. Cannot touch users or system settings.</p></div>
       <div class="role reader"><span class="tag">READER</span><p>The default. Listen, save episodes offline, subscribe to subjects and get notified by email. No publishing.</p></div>
     </div>
   </div>
@@ -260,9 +262,9 @@ python generate.py markets-finance <span class="v">--lang en --minutes 12</span>
     <span class="eyebrow">Under the hood</span>
     <h2 class="title">From headlines to audio</h2>
     <div class="pipeline">
-      <div class="step"><b>01 · Research</b><h4>Fresh sources</h4><p>Grounded web search gathers the last 48 h for the theme, skipping anything already covered.</p></div>
-      <div class="step"><b>02 · Script</b><h4>Two-host dialogue</h4><p>An LLM writes a tight anchor + analyst briefing at your target length and language.</p></div>
-      <div class="step"><b>03 · Voice</b><h4>Text-to-speech</h4><p>The script is voiced with native per-language voices and saved as an MP3.</p></div>
+      <div class="step"><b>01 · Research</b><h4>Fresh sources</h4><p>Grounded web search gathers the latest developments for the subject, skipping anything already covered.</p></div>
+      <div class="step"><b>02 · Script</b><h4>Written episode</h4><p>An LLM turns the brief into a clear, structured episode at your chosen length and language.</p></div>
+      <div class="step"><b>03 · Voice</b><h4>Text-to-speech</h4><p>It's voiced with native per-language voices and saved as an MP3 you own.</p></div>
       <div class="step"><b>04 · Publish</b><h4>Catalog &amp; notify</h4><p>It lands in the catalog, retention prunes old episodes, and subscribers get an email.</p></div>
     </div>
   </div>
@@ -270,7 +272,7 @@ python generate.py markets-finance <span class="v">--lang en --minutes 12</span>
 
 <footer>
   <div class="wrap">
-    <p>🎧 <b>Podcast du jour</b> — built on the <a href="https://github.com/souzatharsis/podcastfy">podcastfy</a> engine.</p>
+    <p>🎧 <b>Podcaster</b> — built on the <a href="https://github.com/souzatharsis/podcastfy">podcastfy</a> engine.</p>
     <p>Self-hosted &amp; open-source · <a href="https://github.com/lp177/podcaster">GitHub</a></p>
   </div>
 </footer>

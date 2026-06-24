@@ -1,7 +1,7 @@
 {
-  "name": "Podcast du jour",
-  "short_name": "Podcast",
-  "description": "Daily fresh-news AI podcasts per theme — listen, create, schedule and save offline.",
+  "name": "Podcaster",
+  "short_name": "Podcaster",
+  "description": "Self-hosted news podcasts on any subject — generate on demand, schedule, and save offline.",
   "lang": "fr",
   "start_url": "/",
   "scope": "/",
