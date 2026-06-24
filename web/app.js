@@ -232,23 +232,41 @@ createApp({
         try {
           job = await this.api("/jobs/" + jobId)
         } catch (e) {
-          this.jobs[slot] = { status: "error", text: String(e) }
+          this.jobs[slot] = { status: "error", text: String(e), error: String(e) }
           return
         }
-        this.jobs[slot] = { status: job.status, text: (job.log || []).join("\n") }
+        this.jobs[slot] = { status: job.status, text: (job.log || []).join("\n"), error: job.error || "" }
         if (job.status === "running") {
           setTimeout(tick, 1500)
+        } else if (job.status === "error") {
+          // Keep the error visible until the user dismisses or retries it.
+          this.flash("La génération a échoué — détail affiché sur la carte")
         } else {
-          if (job.status === "error") {
-            this.flash("Échec de la génération")
-            setTimeout(() => delete this.jobs[slot], 9000)
-          } else {
-            delete this.jobs[slot]
-          }
+          delete this.jobs[slot]
           if (onDone) onDone(job)
         }
       }
       tick()
+    },
+    isError(slot) {
+      return !!this.jobs[slot] && this.jobs[slot].status === "error"
+    },
+    dismissJob(slot) {
+      delete this.jobs[slot]
+    },
+    errorHint(text) {
+      const t = String(text || "")
+      if (/429|RESOURCE_EXHAUSTED|exceeded your.*quota|rate.?limit/i.test(t))
+        return "Quota du fournisseur d'IA dépassé (offre gratuite). Patientez une minute et réessayez, générez un épisode plus court, activez la facturation, ou ajoutez un autre fournisseur dans Réglages."
+      if (/API_KEY_INVALID|API key not valid|invalid_api_key|\b401\b|unauthor/i.test(t))
+        return "Clé API invalide ou expirée. Vérifiez vos clés dans Réglages."
+      if (/No usable.*provider|No usable language model/i.test(t))
+        return "Aucun fournisseur d'IA configuré. Ajoutez une clé API (ex. GEMINI_API_KEY) dans Réglages."
+      if (/Research returned no content|Research failed/i.test(t))
+        return "La recherche d'actualité n'a rien renvoyé. Réessayez, ou précisez le brief du sujet."
+      if (/text-to-speech|voicing/i.test(t))
+        return "La synthèse vocale a échoué chez tous les fournisseurs. Edge (gratuit) devrait fonctionner — réessayez."
+      return t.split("\n").filter(Boolean).slice(-1)[0]?.slice(0, 300) || "Une erreur inattendue est survenue."
     },
     async generate(theme) {
       try {

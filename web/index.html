@@ -162,14 +162,28 @@
 
               <div v-else>
                 <div class="empty" v-if="!jobs['theme:'+t.key]">Pas encore d'épisode aujourd'hui.</div>
-                <pre class="gen-status" v-else>{{ jobs['theme:'+t.key].text }}</pre>
+                <pre class="gen-status" v-else-if="busySlot('theme:'+t.key)">{{ jobs['theme:'+t.key].text }}</pre>
+                <div class="gen-error" v-else-if="isError('theme:'+t.key)">
+                  <div class="ge-head">
+                    <svg class="ic"><use href="#i-bell-off"></use></svg>
+                    <span>La génération a échoué</span>
+                    <button class="icon-btn ripple-host" v-ripple title="Fermer" @click="dismissJob('theme:'+t.key)">
+                      <svg class="ic"><use href="#i-close"></use></svg>
+                    </button>
+                  </div>
+                  <p class="ge-msg">{{ errorHint(jobs['theme:'+t.key].error || jobs['theme:'+t.key].text) }}</p>
+                  <details v-if="jobs['theme:'+t.key].text"><summary>Détails techniques</summary><pre>{{ jobs['theme:'+t.key].text }}</pre></details>
+                  <div class="actions">
+                    <button class="btn tonal ripple-host" v-ripple @click="generate(t)">
+                      <svg class="ic"><use href="#i-bolt"></use></svg> Réessayer
+                    </button>
+                  </div>
+                </div>
               </div>
 
-              <div class="actions" v-if="!t.today && canPublish">
-                <button class="btn filled ripple-host" v-ripple :disabled="busySlot('theme:'+t.key)" @click="generate(t)">
-                  <span v-if="jobs['theme:'+t.key]" class="spinner"></span>
-                  <svg v-else class="ic"><use href="#i-bolt"></use></svg>
-                  {{ jobs['theme:'+t.key] ? 'Génération…' : 'Générer maintenant' }}
+              <div class="actions" v-if="!t.today && canPublish && !jobs['theme:'+t.key]">
+                <button class="btn filled ripple-host" v-ripple @click="generate(t)">
+                  <svg class="ic"><use href="#i-bolt"></use></svg> Générer maintenant
                 </button>
               </div>
             </article>
@@ -227,7 +241,19 @@
                 <select v-model.number="form.hour"><option v-for="h in 24" :value="h-1">{{ String(h-1).padStart(2,'0') }}:00</option></select>
               </div>
             </div>
-            <pre class="gen-status" v-if="createJob">{{ createJob.text }}</pre>
+            <pre class="gen-status" v-if="createJob && createJob.status==='running'">{{ createJob.text }}</pre>
+            <div class="gen-error" v-else-if="createJob && createJob.status==='error'">
+              <div class="ge-head">
+                <svg class="ic"><use href="#i-bell-off"></use></svg>
+                <span>La génération a échoué</span>
+                <button class="icon-btn ripple-host" v-ripple title="Fermer" @click="dismissJob('create')">
+                  <svg class="ic"><use href="#i-close"></use></svg>
+                </button>
+              </div>
+              <p class="ge-msg">{{ errorHint(createJob.error || createJob.text) }}</p>
+              <details v-if="createJob.text"><summary>Détails techniques</summary><pre>{{ createJob.text }}</pre></details>
+              <p class="ge-note">La thématique a bien été créée — relancez la génération depuis « Aujourd'hui ».</p>
+            </div>
             <div class="actions">
               <button class="btn filled ripple-host" v-ripple :disabled="!canCreate || (createJob && createJob.status==='running')" @click="createTheme">
                 <span v-if="createJob && createJob.status==='running'" class="spinner"></span>
